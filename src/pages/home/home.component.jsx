@@ -4,26 +4,36 @@ import Divider from "../../components/divider/divider.component";
 import ItemsDirectory from "../../components/items-directory/items-directory.component";
 import Section from "../../components/section/section.component";
 import Brands from "../../components/brands/brands.component";
+import {selectItemsByBrand, selectItemsOrderByPrice} from "../../redux/shop/shop.selector";
+import {connect} from "react-redux";
+import {createStructuredSelector} from "reselect";
 
-const HomePage = props => (
+const HomePage = ({ itemsOrderByPrice,itemsSamsung }) => (
   <div>
     <ImageSlider />
     <div className="container">
       <Brands />
-      <Divider title="Most Popular" />
-      {/*<ItemsDirectory*/}
-      {/*  isShowAllItems={false}*/}
-      {/*  cardsSize="mt - 3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-3"*/}
-      {/*/>*/}
-      <Divider title="Newest" />
-      {/*<ItemsDirectory*/}
-      {/*  isShowAllItems={false}*/}
-      {/*  cardsSize="mt - 3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-3"*/}
-      {/*/>*/}
+      <Divider title="Cheapest" />
+      <ItemsDirectory
+        items={itemsOrderByPrice}
+        isShowAllItems={false}
+        cardsSize="mt - 3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-3"
+      />
+      <Divider title="Samsung" />
+      <ItemsDirectory
+        items={itemsSamsung}
+        isShowAllItems={false}
+        cardsSize="mt - 3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-3"
+      />
       <Divider title="About us" />
       <Section />
     </div>
   </div>
 );
 
-export default HomePage;
+const mapStateToProps = createStructuredSelector({
+  itemsOrderByPrice: selectItemsOrderByPrice,
+  itemsSamsung: selectItemsByBrand("Samsung")
+});
+
+export default connect(mapStateToProps)(HomePage);

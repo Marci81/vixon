@@ -12,7 +12,7 @@ const ItemsDirectory = ({ cardsSize, isShowAllItems, items, id, title, category}
           : items
               .filter((item, idx) => idx < 4)
               .map(({ id, ...otherProps }) => (
-                <Card cardsSize={cardsSize} key={id} {...otherProps} />
+                <Card cardsSize={cardsSize} id={id} key={id} {...otherProps} />
               ))}
       </div>
     </div>

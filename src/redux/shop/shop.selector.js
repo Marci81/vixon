@@ -19,12 +19,34 @@ export const selectShopItem = (category, itemId) =>
     items => items[category].items.find(i => i.id === Number(itemId))
   );
 
-export const selectShopItemsId = createSelector(
+export const selectShopItem2 = itemId =>
+  createSelector(
+    selectShopAllItems,
+    shopItems =>
+      Object.keys(shopItems)
+        .map(key => shopItems[key])
+        .map(i => i.items)
+        .flat()
+        .filter(j=>j.id === (Number)(itemId))
+  );
+
+export const selectItemsOrderByPrice = createSelector(
   selectShopAllItems,
-  items =>
-    Object.keys(items)
-      .map(key => items[key])
+  shopItems =>
+    Object.keys(shopItems)
+      .map(key => shopItems[key])
       .map(i => i.items)
       .flat()
-      .map(i => i.id)
+      .sort((prev, next) => prev.price - next.price)
 );
+
+export const selectItemsByBrand = brandName =>
+  createSelector(
+    selectShopAllItems,
+    shopItems =>
+      Object.keys(shopItems)
+        .map(key => shopItems[key])
+        .map(i => i.items)
+        .flat()
+        .filter(j => j.brand === brandName)
+  );
