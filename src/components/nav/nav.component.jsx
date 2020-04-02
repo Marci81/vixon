@@ -1,0 +1,126 @@
+import React from "react";
+import { NavBarContainer, NavItemLink } from "./nav.style";
+import { Link } from "react-router-dom";
+
+const Nav = props => (
+  <div>
+    <NavBarContainer className="navbar navbar-light navbar-expand-md ">
+      <div className="container-fluid">
+        <NavItemLink className="navbar-brand NavBarBrand" to="/">
+          Vixon
+        </NavItemLink>
+        <button
+          data-toggle="collapse"
+          className="navbar-toggler"
+          data-target="#navcol-1"
+        >
+          <span className="sr-only">Toggle navigation</span>
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navcol-1">
+          <ul className="nav navbar-nav NavBarNavContainer">
+            <li className="nav-item " role="presentation">
+              <NavItemLink className="nav-link " to="/">
+                Home
+              </NavItemLink>
+            </li>
+            <li className="nav-item " role="presentation">
+              <a className="nav-link  " href="/#about">
+                About
+              </a>
+            </li>
+            <li className="nav-item" role="presentation">
+              <NavItemLink className="nav-link  " to="/checkout">
+                Cart
+              </NavItemLink>
+            </li>
+            <li className="nav-item  dropdown">
+              <NavItemLink
+                className="dropdown-toggle nav-link "
+                data-toggle="dropdown"
+                aria-expanded="false"
+                to=""
+              >
+                Categories
+              </NavItemLink>
+              <div className="dropdown-menu DropdownContainer" role="menu">
+                <Link
+                  className="dropdown-item DropdownItem N"
+                  role="presentation"
+                  to="/category/phones"
+                >
+                  Phones
+                </Link>
+                <Link
+                  className="dropdown-item DropdownItem"
+                  role="presentation"
+                  to="/category/tvs"
+                >
+                  Tvs
+                </Link>
+                <Link
+                  className="dropdown-item DropdownItem"
+                  role="presentation"
+                  to="/category/laptops"
+                >
+                  Laptops
+                </Link>
+                <Link
+                  className="dropdown-item DropdownItem"
+                  role="presentation"
+                  to="/category/monitors"
+                >
+                  Monitors
+                </Link>
+                <Link
+                  className="dropdown-item DropdownItem"
+                  role="presentation"
+                  to="/category/keyboards"
+                >
+                  Keyboards
+                </Link>
+              </div>
+            </li>
+            <li>
+              <div className="input-group ">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  aria-describedby="button-addon3"
+                  className="form-control "
+                />
+                <div className="input-group-append ">
+                  <button
+                    id="button-addon3"
+                    type="button"
+                    className="btn btn-primary px-4 "
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav ml-auto">
+            <li className="nav-item " role="presentation">
+              <NavItemLink className="nav-link  " to="/login-signup">
+                Sign Up
+              </NavItemLink>
+            </li>
+            <li className="nav-item" role="presentation">
+              <Link
+                to="/login-signup"
+                className="btn btn-primary"
+                type="button"
+              >
+                Log In
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </NavBarContainer>
+  </div>
+);
+
+export default Nav;
