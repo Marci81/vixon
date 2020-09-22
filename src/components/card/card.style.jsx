@@ -37,5 +37,5 @@ export const Button = styled.button`
 `;
 
 export const CardInfoContainer = styled.div`
-  min-height: 330px;
+  min-height: 350px;
 `;

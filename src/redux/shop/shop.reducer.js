@@ -1,7 +1,8 @@
-import {SHOP_DATA} from "./shop.data";
+import { SHOP_DATA } from "./shop.data";
 
 const INITIAL_STATE = {
   shopItems: SHOP_DATA,
+  brandToFilter: ""
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {

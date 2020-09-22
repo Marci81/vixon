@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const BrandsContainer = styled.div`
   &&& {
@@ -9,7 +10,7 @@ export const BrandsContainer = styled.div`
   }
 `;
 
-export const BrandLink = styled.a`
+export const BrandLink = styled(Link)`
   &&& {
     color: lightgrey;
     opacity: 0.5;

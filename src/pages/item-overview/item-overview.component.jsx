@@ -8,51 +8,65 @@ import {
   ItemOverviewTitle
 } from "./item.overview.style";
 
-import { selectShopItem } from "../../redux/shop/shop.selector";
+import { selectShopItem2 } from "../../redux/shop/shop.selector";
 import { connect } from "react-redux";
+import { addItemToCart } from "../../redux/cart/cart.action";
+import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
+import { Fade } from "react-reveal";
 
-const ItemOverviewPage = ({ item, history }) => (
+const ItemOverviewPage = ({ item, history, dispatch }) => (
   <div>
-    {!item ? (
-      history.push("/error")
-    ) : (
-      <div className="container">
-        <ItemOverviewContainer className="row">
-          <div className="col-md-7">
-            <div className="row">
-              <div className="col-md-12">
-                <ItemOverviewImage
-                  className="img-fluid center-block OverviewImage"
-                  src={item.imageUrl}
-                />
-              </div>
-              <ItemOverviewTextAndPriceContainer className="row">
-                <div className="col-6">
-                  <h1>${item.price}</h1>
+    {item.length > 0
+      ? item.map(i => (
+          <Fade right>
+            <div className="container" key={i.id}>
+              <ItemOverviewContainer className="row">
+                <div className="col-md-7">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <ItemOverviewImage
+                        className="img-fluid center-block OverviewImage"
+                        src={i.imageUrl}
+                      />
+                    </div>
+                    <ItemOverviewTextAndPriceContainer className="row">
+                      <div className="col-6">
+                        <h1>${i.price}.00</h1>
+                      </div>
+                      <div className="col-6">
+                        <ItemOverviewButton
+                          className="btn btn-primary btn-lg"
+                          onClick={evt => {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            dispatch(toggleAlert("Added to cart"));
+                            dispatch(addItemToCart(i));
+                            setTimeout(() => {
+                              dispatch(resetAlert());
+                            }, 1000);
+                          }}
+                        >
+                          Add To Cart
+                        </ItemOverviewButton>
+                      </div>
+                    </ItemOverviewTextAndPriceContainer>
+                  </div>
                 </div>
-                <div className="col-6">
-                  <ItemOverviewButton className="btn btn-primary btn-lg">
-                    Add To Cart
-                  </ItemOverviewButton>
+                <div className="col-md-5">
+                  <ItemOverviewTitle>{i.name}</ItemOverviewTitle>
+                  <hr />
+                  <ItemOverviewText>{i.description}</ItemOverviewText>
                 </div>
-              </ItemOverviewTextAndPriceContainer>
+              </ItemOverviewContainer>
             </div>
-          </div>
-          <div className="col-md-5">
-            <ItemOverviewTitle>{item.name}</ItemOverviewTitle>
-            <hr />
-            <ItemOverviewText>{item.description}</ItemOverviewText>
-          </div>
-        </ItemOverviewContainer>
-      </div>
-    )}
+          </Fade>
+        ))
+      : history.push("/error")}
   </div>
 );
 
 const mapStateToProps = (state, props) => ({
-  item: selectShopItem(props.match.params.category,props.match.params.id)(
-    state
-  )
+  item: selectShopItem2(props.match.params.id)(state)
 });
 
-export default connect(mapStateToProps) (ItemOverviewPage);
+export default connect(mapStateToProps)(ItemOverviewPage);

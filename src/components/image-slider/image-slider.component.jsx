@@ -51,6 +51,7 @@ class ImageSlider extends React.Component {
             />
           </span>
         </ImageSliderSwitcherContainer>
+        <hr/>
       </div>
     );
   }

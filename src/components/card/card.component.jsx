@@ -1,18 +1,18 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import {
   Button,
   CardBody,
   CardContainer,
+  CardInfoContainer,
   CardSubTitle,
   CardText,
-  CardTitle,
-  CardInfoContainer
+  CardTitle
 } from "./card.style";
-import { increaseItemClickCount } from "../../redux/shop/shop.action";
+import { addItemToCart } from "../../redux/cart/cart.action";
+import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
 
 class Card extends React.Component {
   constructor(props) {
@@ -24,20 +24,11 @@ class Card extends React.Component {
   }
 
   render() {
-    const {
-      imageUrl,
-      description,
-      brand,
-      name,
-      price,
-      cardsSize,
-      category,
-      id,
-    } = this.props;
+    const { item, cardsSize, category, dispatch } = this.props;
     const { isHover } = this.state;
     return (
       <CardContainer
-        to={`/category/${category}/item/${id}`}
+        to={`/item/${item.id}`}
         onMouseEnter={() => {
           this.setState({ isHover: true });
         }}
@@ -47,15 +38,27 @@ class Card extends React.Component {
         className={`${isHover ? "animated pulse" : ""} ${cardsSize} `}
       >
         <div className="bg-light border rounded shadow card">
-          <img className="card-img-top" src={imageUrl} alt={name} />
+          <img className="card-img-top" src={item.imageUrl} alt={item.name} />
           <CardBody className="card-body">
             <CardInfoContainer>
-              <CardTitle>{name.substr(0, 14)}</CardTitle>
-              <CardSubTitle>{brand}</CardSubTitle>
-              <CardText>{description.substr(0, 180) + "..."}</CardText>
-              <CardSubTitle>${price}</CardSubTitle>
+              <CardTitle>{item.name.substr(0, 14)}</CardTitle>
+              <CardSubTitle>{item.brand}</CardSubTitle>
+              <CardText>{item.description.substr(0, 180) + "..."}</CardText>
+              <CardSubTitle>${item.price}.00</CardSubTitle>
             </CardInfoContainer>
-            <Button className="btn btn-outline-primary" type="button">
+            <Button
+              className="btn btn-outline-primary"
+              type="button"
+              onClick={evt => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                dispatch(toggleAlert("Added to cart"));
+                dispatch(addItemToCart(item));
+                setTimeout(() => {
+                  dispatch(resetAlert());
+                }, 1000);
+              }}
+            >
               Add To Cart
             </Button>
           </CardBody>
@@ -65,4 +68,4 @@ class Card extends React.Component {
   }
 }
 
-export default Card;
+export default connect(null)(Card);

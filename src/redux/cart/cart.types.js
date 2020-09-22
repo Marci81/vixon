@@ -1,0 +1,5 @@
+export const cartActionTypes = {
+  ADD: 'ADD',
+  REMOVE:'REMOVE',
+  REMOVEALLQUANTITY:'REMOVEALLQUANTITY'
+}

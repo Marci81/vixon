@@ -1,126 +1,169 @@
 import React from "react";
 import { NavBarContainer, NavItemLink } from "./nav.style";
 import { Link } from "react-router-dom";
+import Search from "../search/search.component";
+import { toggleSearch } from "../../redux/search/search.action";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectItemsToTheSearch } from "../../redux/search/search.selector";
 
-const Nav = props => (
-  <div>
-    <NavBarContainer className="navbar navbar-light navbar-expand-md ">
-      <div className="container-fluid">
-        <NavItemLink className="navbar-brand NavBarBrand" to="/">
-          Vixon
-        </NavItemLink>
-        <button
-          data-toggle="collapse"
-          className="navbar-toggler"
-          data-target="#navcol-1"
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navcol-1">
-          <ul className="nav navbar-nav NavBarNavContainer">
-            <li className="nav-item " role="presentation">
-              <NavItemLink className="nav-link " to="/">
-                Home
-              </NavItemLink>
-            </li>
-            <li className="nav-item " role="presentation">
-              <a className="nav-link  " href="/#about">
-                About
-              </a>
-            </li>
-            <li className="nav-item" role="presentation">
-              <NavItemLink className="nav-link  " to="/checkout">
-                Cart
-              </NavItemLink>
-            </li>
-            <li className="nav-item  dropdown">
-              <NavItemLink
-                className="dropdown-toggle nav-link "
-                data-toggle="dropdown"
-                aria-expanded="false"
-                to=""
-              >
-                Categories
-              </NavItemLink>
-              <div className="dropdown-menu DropdownContainer" role="menu">
-                <Link
-                  className="dropdown-item DropdownItem N"
-                  role="presentation"
-                  to="/category/phones"
-                >
-                  Phones
-                </Link>
-                <Link
-                  className="dropdown-item DropdownItem"
-                  role="presentation"
-                  to="/category/tvs"
-                >
-                  Tvs
-                </Link>
-                <Link
-                  className="dropdown-item DropdownItem"
-                  role="presentation"
-                  to="/category/laptops"
-                >
-                  Laptops
-                </Link>
-                <Link
-                  className="dropdown-item DropdownItem"
-                  role="presentation"
-                  to="/category/monitors"
-                >
-                  Monitors
-                </Link>
-                <Link
-                  className="dropdown-item DropdownItem"
-                  role="presentation"
-                  to="/category/keyboards"
-                >
-                  Keyboards
-                </Link>
-              </div>
-            </li>
-            <li>
-              <div className="input-group ">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  aria-describedby="button-addon3"
-                  className="form-control "
-                />
-                <div className="input-group-append ">
-                  <button
-                    id="button-addon3"
-                    type="button"
-                    className="btn btn-primary px-4 "
+class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchText: ""
+    };
+  }
+
+  render() {
+    const { searchText } = this.state;
+    const { dispatch, items } = this.props;
+
+    let itemsMatchTheSearch = items.filter(i =>
+      i.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    return (
+      <div>
+        <NavBarContainer className="navbar navbar-light navbar-expand-md ">
+          <div className="container-fluid">
+            <NavItemLink className="navbar-brand NavBarBrand" to="/">
+              Vixon
+            </NavItemLink>
+            <button
+              data-toggle="collapse"
+              className="navbar-toggler"
+              data-target="#navcol-1"
+            >
+              <span className="sr-only">Toggle navigation</span>
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div className="collapse navbar-collapse" id="navcol-1">
+              <ul className="nav navbar-nav NavBarNavContainer">
+                <li className="nav-item " role="presentation">
+                  <NavItemLink className="nav-link " to="/">
+                    Home
+                  </NavItemLink>
+                </li>
+                <li className="nav-item " role="presentation">
+                  <NavItemLink className="nav-link  " to="/#about">
+                    About
+                  </NavItemLink>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <NavItemLink className="nav-link  " to="/checkout">
+                    Cart
+                  </NavItemLink>
+                </li>
+                <li className="nav-item  dropdown">
+                  <NavItemLink
+                    className="dropdown-toggle nav-link "
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    to=""
                   >
-                    Search
-                  </button>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <ul className="nav navbar-nav ml-auto">
-            <li className="nav-item " role="presentation">
-              <NavItemLink className="nav-link  " to="/login-signup">
-                Sign Up
-              </NavItemLink>
-            </li>
-            <li className="nav-item" role="presentation">
-              <Link
-                to="/login-signup"
-                className="btn btn-primary"
-                type="button"
-              >
-                Log In
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </NavBarContainer>
-  </div>
-);
+                    Categories
+                  </NavItemLink>
+                  <div className="dropdown-menu DropdownContainer" role="menu">
+                    <Link
+                      className="dropdown-item DropdownItem N"
+                      role="presentation"
+                      to="/category/phones"
+                    >
+                      Phones
+                    </Link>
+                    <Link
+                      className="dropdown-item DropdownItem"
+                      role="presentation"
+                      to="/category/tvs"
+                    >
+                      Tvs
+                    </Link>
+                    <Link
+                      className="dropdown-item DropdownItem"
+                      role="presentation"
+                      to="/category/laptops"
+                    >
+                      Laptops
+                    </Link>
+                    <Link
+                      className="dropdown-item DropdownItem"
+                      role="presentation"
+                      to="/category/monitors"
+                    >
+                      Monitors
+                    </Link>
+                    <Link
+                      className="dropdown-item DropdownItem"
+                      role="presentation"
+                      to="/category/keyboards"
+                    >
+                      Keyboards
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="input-group ">
+                    <input
+                      value={searchText}
+                      onChange={evt => {
+                        this.setState({ searchText: evt.target.value });
+                      }}
+                      type="text"
+                      placeholder="Search"
+                      aria-describedby="button-addon3"
+                      className="form-control "
+                      onFocus={() => {
+                        dispatch(toggleSearch());
+                      }}
+                      onBlur={() => {
+                        setTimeout(() => {
+                          dispatch(toggleSearch());
+                        }, 100);
+                      }}
+                    />
+                    <div className="input-group-append ">
+                      <button
+                        id="button-addon3"
+                        type="button"
+                        className="btn btn-primary px-4 "
+                        onClick={() => dispatch(toggleSearch())}
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav ml-auto">
+                <li className="nav-item " role="presentation">
+                  <NavItemLink className="nav-link  " to="/login-signup">
+                    Sign Up
+                  </NavItemLink>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <Link
+                    to="/login-signup"
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    Log In
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </NavBarContainer>
 
-export default Nav;
+        <Search items={itemsMatchTheSearch} />
+      </div>
+    );
+  }
+}
+
+//TODO Remove this and move it to Redux set
+const mapStateToProps = createStructuredSelector({
+  items: selectItemsToTheSearch
+});
+
+export default connect(mapStateToProps)(Nav);

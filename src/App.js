@@ -10,79 +10,34 @@ import ShopPage from "./pages/shop/shop.component";
 import LogInSignUpPage from "./pages/log-in-sign-up/log-in-sign-up.component";
 import ItemOverviewPage from "./pages/item-overview/item-overview.component";
 import ErrorPage from "./pages/error/error.component";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-
-import "./App.css";
+import BrandPage from "./pages/brand/brand.component";
 
 const App = () => {
   return (
     <div>
       <Nav />
-      <Route
-        render={({location}) => (
-          <TransitionGroup>
-            <CSSTransition key={location.key}  className="fade" timeout={50}>
-              <Switch location={location} >
-                <Route
-                  exact
-                  path="/"
-                  render={props => (
-                    <div className="page">
-                      <HomePage />
-                    </div>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/checkout"
-                  render={props => (
-                    <div className="page">
-                      <CheckoutPage />
-                    </div>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/login-signup"
-                  render={props => (
-                    <div className="page">
-                      <LogInSignUpPage />
-                    </div>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/error"
-                  render={props => (
-                    <div className="page">
-                      <ErrorPage />
-                    </div>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/category/:category"
-                  render={props => (
-                    <div className="page">
-                      <ShopPage {...props} />
-                    </div>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/category/:category/item/:id"
-                  render={props => (
-                    <div className="page">
-                      <ItemOverviewPage {...props} />
-                    </div>
-                  )}
-                />
-                <Route component={ErrorPage} />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        )}
-      />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route exact path="/login-signup" render={LogInSignUpPage} />
+        <Route exact path="/error" render={ErrorPage} />
+        <Route
+          exact
+          path="/category/:category"
+          render={props => <ShopPage {...props} />}
+        />
+        <Route
+          exact
+          path="/item/:id"
+          render={props => <ItemOverviewPage {...props} />}
+        />
+        <Route
+          exact
+          path="/brands/:name"
+          render={props => <BrandPage {...props}  />}
+        />
+        <Route component={ErrorPage} />
+      </Switch>
       <Footer />
     </div>
   );

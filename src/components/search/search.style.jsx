@@ -1,0 +1,17 @@
+import styled from "styled-components";
+
+export const SearchContainer = styled.div`
+  &&& {
+    position: absolute;
+    top: 55px;
+    left: 10vw;
+    width: 450px;
+    height: 500px;
+    overflow: scroll;
+    z-index: 1;
+    
+    @media (max-width: 768px) {
+        top:95px;
+        left:0;
+  }
+`;

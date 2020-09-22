@@ -1,20 +1,23 @@
 import React from "react";
-import CheckoutItem from "../cart-item-body/cart-item-body.component";
+import CartItemBody from "../cart-item-body/cart-item-body.component";
 import CartItemHead from "../cart-item-head/cart-item-head.component";
 import WhiteRoundedContainer from "../white-rounded-container/white-rounded-container.component";
+import {selectCartItems, selectCartTotalPrice} from "../../redux/cart/cart.selector";
+import {connect} from "react-redux";
+import {createStructuredSelector} from "reselect";
 
-const Cart = props => (
+const Cart = ({ cartItems }) => (
   <WhiteRoundedContainer>
     <div className="col-12">
       <div className="table-responsive">
         <table className="table">
           <thead>
-          <CartItemHead/>
+            <CartItemHead />
           </thead>
           <tbody>
-          <CheckoutItem/>
-          <CheckoutItem/>
-          <CheckoutItem/>
+            {cartItems.map((item) => (
+              <CartItemBody key={item.id} item={item} />
+            ))}
           </tbody>
         </table>
       </div>
@@ -22,4 +25,9 @@ const Cart = props => (
   </WhiteRoundedContainer>
 );
 
-export default Cart;
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+  cartTotalPrice: selectCartTotalPrice
+});
+
+export default connect(mapStateToProps)(Cart);

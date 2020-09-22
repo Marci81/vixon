@@ -1,18 +1,18 @@
 import React from "react";
 import Card from "../card/card.component";
 
-const ItemsDirectory = ({ cardsSize, isShowAllItems, items, id, title, category}) => {
+const ItemsDirectory = ({ cardsSize, isShowAllItems, items, category}) => {
   return (
     <div className="col">
       <div className="row">
         {isShowAllItems
-          ? items.map(({ id, ...otherProps }) => (
-              <Card category={category} cardsSize={cardsSize} key={id} id={id} {...otherProps} />
+          ? items.map((item) => (
+              <Card category={category} cardsSize={cardsSize} key={item.id} item={item}  />
             ))
           : items
               .filter((item, idx) => idx < 4)
-              .map(({ id, ...otherProps }) => (
-                <Card cardsSize={cardsSize} id={id} key={id} {...otherProps} />
+              .map((item) => (
+                <Card cardsSize={cardsSize}  key={item.id} item={item} />
               ))}
       </div>
     </div>
