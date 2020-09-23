@@ -2,11 +2,8 @@ import React from "react";
 import Divider from "../../components/divider/divider.component";
 import { Fade } from "react-reveal";
 import ItemsDirectory from "../../components/items-directory/items-directory.component";
-import { createStructuredSelector } from "reselect";
 import {
-  selectItemsByBrand,
-  selectItemsByBrandAndOs,
-  selectItemsByOS
+  selectItemsByBrandAndOs
 } from "../../redux/shop/shop.selector";
 import { connect } from "react-redux";
 import { BrandPageContainer } from "./brand.style";

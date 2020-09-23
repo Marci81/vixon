@@ -24,7 +24,7 @@ class Card extends React.Component {
   }
 
   render() {
-    const { item, cardsSize, category, dispatch } = this.props;
+    const { item, cardsSize, dispatch } = this.props;
     const { isHover } = this.state;
     return (
       <CardContainer

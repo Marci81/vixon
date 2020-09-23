@@ -6,6 +6,9 @@ import { toggleSearch } from "../../redux/search/search.action";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectItemsToTheSearch } from "../../redux/search/search.selector";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { auth } from "../../firebase/firebase.utils";
+import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
 
 class Nav extends React.Component {
   constructor(props) {
@@ -18,7 +21,7 @@ class Nav extends React.Component {
 
   render() {
     const { searchText } = this.state;
-    const { dispatch, items } = this.props;
+    const { dispatch, items, currentUser } = this.props;
 
     let itemsMatchTheSearch = items.filter(i =>
       i.name.toLowerCase().includes(searchText.toLowerCase())
@@ -135,22 +138,48 @@ class Nav extends React.Component {
                   </div>
                 </li>
               </ul>
-              <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item " role="presentation">
-                  <NavItemLink className="nav-link  " to="/login-signup">
-                    Sign Up
-                  </NavItemLink>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <Link
-                    to="/login-signup"
-                    className="btn btn-primary"
-                    type="button"
+
+              {!currentUser ? (
+                <ul className="nav navbar-nav ml-auto">
+                  <li className="nav-item " role="presentation">
+                    <NavItemLink className="nav-link  " to="/login-signup">
+                      Sign Up
+                    </NavItemLink>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link
+                      to="/login-signup"
+                      className="btn btn-primary"
+                      type="button"
+                    >
+                      Log In
+                    </Link>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="nav navbar-nav ml-auto">
+                  <li role="presentation">
+                    <NavItemLink to="/" className="nav-link">
+                      Hi {currentUser.displayName}
+                    </NavItemLink>
+                  </li>
+                  <li
+                    className="nav-item"
+                    role="presentation"
+                    onClick={() => {
+                      auth.signOut();
+                      dispatch(toggleAlert("Successfully Signed Out!"));
+                      setTimeout(() => {
+                        dispatch(resetAlert());
+                      }, 1000);
+                    }}
                   >
-                    Log In
-                  </Link>
-                </li>
-              </ul>
+                    <Link to="/" className="btn btn-primary" type="button">
+                      Log out
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
         </NavBarContainer>
@@ -163,7 +192,8 @@ class Nav extends React.Component {
 
 //TODO Remove this and move it to Redux set
 const mapStateToProps = createStructuredSelector({
-  items: selectItemsToTheSearch
+  items: selectItemsToTheSearch,
+  currentUser: selectCurrentUser
 });
 
 export default connect(mapStateToProps)(Nav);

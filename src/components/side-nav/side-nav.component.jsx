@@ -1,7 +1,10 @@
 import React from "react";
-import {SideNavContainer, SideNavItems, SideNavItemsContainer, SideNavTitle} from "./side-nav.style";
-import { connect } from "react-redux";
-import { setBrandToFilter } from "../../redux/shop/shop.action";
+import {
+  SideNavContainer,
+  SideNavItems,
+  SideNavItemsContainer,
+  SideNavTitle
+} from "./side-nav.style";
 
 const SideNav = ({ title, brands, filterToBrand }) => (
   <div className="col-md-3 col-6">
@@ -9,10 +12,12 @@ const SideNav = ({ title, brands, filterToBrand }) => (
       <SideNavTitle>{title}</SideNavTitle>
       <SideNavItemsContainer className="mt-5">
         {Array(...new Set(brands)).map((brand, idx) => (
-          <SideNavItems key={brand} onClick={evt => filterToBrand(brand)}>
-            {brand}
-            <hr/>
-          </SideNavItems>
+          <div key={idx}>
+            <SideNavItems  onClick={() => filterToBrand(brand)}>
+              {brand}
+            </SideNavItems>
+            <hr />
+          </div>
         ))}
       </SideNavItemsContainer>
     </SideNavContainer>

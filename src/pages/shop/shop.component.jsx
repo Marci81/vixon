@@ -2,26 +2,21 @@ import React, { useEffect, useState } from "react";
 import ImageSlider from "../../components/image-slider/image-slider.component";
 import SideNav from "../../components/side-nav/side-nav.component";
 import ItemsDirectory from "../../components/items-directory/items-directory.component";
-import {
-  selectShopBrandToFilter,
-  selectShopItemsByCategory
-} from "../../redux/shop/shop.selector";
+import { selectShopItemsByCategory } from "../../redux/shop/shop.selector";
 import { connect } from "react-redux";
 import { ShopPageContainer } from "./shop.style";
 import { Fade } from "react-reveal";
-import { setBrandToFilter } from "../../redux/shop/shop.action";
 
 const ShopPage = ({
   matchedCategoryItems,
   match: {
-    params: { category, id }
+    params: { category }
   },
-  history,
-  dispatch
+  history
 }) => {
   useEffect(() => {
     setItems(matchedCategoryItems.items);
-  }, [category]);
+  }, [category, matchedCategoryItems.items]);
 
   const [items, setItems] = useState(matchedCategoryItems.items);
 

@@ -1,14 +1,43 @@
 import React from "react";
 import useInputForm from "../../hooks/use-input-form.hook";
 import SignUpGoogle from "../sign-up-google/sign-up-google.component";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
+import { connect } from "react-redux";
 
-const SignUpEmail = () => {
+const SignUpEmail = ({ dispatch }) => {
   const [email, updateEmail, resetEmail] = useInputForm("");
   const [name, updateName, resetName] = useInputForm("");
   const [password, updatePassword, resetPassword] = useInputForm("");
+
+  const resetState = () => {
+    resetEmail();
+    resetName();
+    resetPassword();
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfileDocument(user, { displayName: name });
+      resetState();
+    } catch (error) {
+      dispatch(toggleAlert(error.message));
+      setTimeout(() => {
+        dispatch(resetAlert());
+      }, 5000);
+    }
+  };
+
   return (
     <div className="col">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <h1>Sign Up With Email</h1>
           <hr />
@@ -44,25 +73,4 @@ const SignUpEmail = () => {
   );
 };
 
-export default SignUpEmail;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default connect(null)(SignUpEmail);
