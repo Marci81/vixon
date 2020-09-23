@@ -17,7 +17,7 @@ const ShopPage = ({
   useEffect(() => {
     setItems(matchedCategoryItems.items);
   }, [category, matchedCategoryItems.items]);
-
+ 
   const [items, setItems] = useState(matchedCategoryItems.items);
 
   const filterToBrand = brandName => {
