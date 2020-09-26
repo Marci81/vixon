@@ -7,10 +7,16 @@ export const selectShopAllItems = createSelector(
   shop => shop.shopItems
 );
 
+export const selectShopItemsToArray = createSelector(
+  selectShopAllItems,
+  shopItems =>
+    shopItems ? Object.keys(shopItems).map(key => shopItems[key]) : []
+);
+
 export const selectShopItemsByCategory = category =>
   createSelector(
     [selectShopAllItems],
-    items => items[category]
+    items => (items ? items[category] : null)
   );
 
 //TODO remove this one rename the other one selectShopItem2
@@ -22,20 +28,18 @@ export const selectShopItem = (category, itemId) =>
 
 export const selectShopItem2 = itemId =>
   createSelector(
-    selectShopAllItems,
+    selectShopItemsToArray,
     shopItems =>
-      Object.keys(shopItems)
-        .map(key => shopItems[key])
+      shopItems
         .map(i => i.items)
         .flat()
         .filter(j => j.id === Number(itemId))
   );
 
 export const selectItemsOrderByPrice = createSelector(
-  selectShopAllItems,
+  selectShopItemsToArray,
   shopItems =>
-    Object.keys(shopItems)
-      .map(key => shopItems[key])
+    shopItems
       .map(i => i.items)
       .flat()
       .sort((prev, next) => prev.price - next.price)
@@ -43,10 +47,9 @@ export const selectItemsOrderByPrice = createSelector(
 
 export const selectItemsByBrand = brandName =>
   createSelector(
-    selectShopAllItems,
+    selectShopItemsToArray,
     shopItems =>
-      Object.keys(shopItems)
-        .map(key => shopItems[key])
+      shopItems
         .map(i => i.items)
         .flat()
         .filter(j => j.brand === brandName)
@@ -54,10 +57,9 @@ export const selectItemsByBrand = brandName =>
 
 export const selectItemsByOS = osName =>
   createSelector(
-    selectShopAllItems,
+    selectShopItemsToArray,
     shopItems =>
-      Object.keys(shopItems)
-        .map(key => shopItems[key])
+      shopItems
         .map(i => i.items)
         .flat()
         .filter(j => j.os === osName)

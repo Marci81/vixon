@@ -10,9 +10,9 @@ export const selectIsHidden = createSelector(
 
 export const selectItemsToTheSearch = createSelector(
   selectShopAllItems,
-  shopItems =>
+  shopItems => shopItems ?
     Object.keys(shopItems)
       .map(key => shopItems[key])
       .map(i => i.items)
-      .flat()
+      .flat() : []
 );
