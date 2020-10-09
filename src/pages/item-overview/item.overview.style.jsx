@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const ItemOverviewContainer = styled.div`
   margin-top: 40px;
+
+  @media (max-width: 991px) {
+    margin-bottom: 100px;
+  }
 `;
 
 export const ItemOverviewTextAndPriceContainer = styled.div`
@@ -16,14 +20,28 @@ export const ItemOverviewButton = styled.button`
   position: absolute;
   right: 0;
   margin-right: 15px;
+  @media (max-width: 991px) {
+    margin-top: 0;
+    font-size: 16px;
+    width: 80%;
+  }
 `;
 
 export const ItemOverviewTitle = styled.h1`
-    margin-top: 20px;
-    @media screen and (min-width: 721px){
-    .OverviewTitle {
-        margin-top: 0;
-    }
+  margin-top: 20px;
+  @media (max-width: 991px) {
+    margin-top: 0;
+    font-size: 1.5em;
+  }
+`;
+
+export const ItemOverviewPrice = styled.h1`
+  font-size: 2em;
+  opacity: 0.7;
+  @media (max-width: 991px) {
+    margin-top: 0;
+    font-size: 1.3em;
+  }
 `;
 
 export const ItemOverviewText = styled.p`
@@ -32,7 +50,6 @@ export const ItemOverviewText = styled.p`
 `;
 
 export const ItemOverviewImage = styled.img`
-  border: 1px solid #51b5d4;
   padding: 5px;
-  margin-top:25px
+  margin-top: 25px;
 `;

@@ -10,8 +10,8 @@ export const SearchContainer = styled.div`
     overflow: scroll;
     z-index: 1;
     
-    @media (max-width: 768px) {
-        top:95px;
-        left:0;
+    @media (max-width: 991px) {
+        top:333px;
+        left:6vw;
   }
 `;

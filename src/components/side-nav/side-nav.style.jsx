@@ -16,5 +16,6 @@ export const SideNavItems = styled.p`
   font-size: 1.25em;
   &&:hover {
     color: #f57d53;
+    cursor: pointer;
   }
 `;

@@ -2,13 +2,13 @@ import React from "react";
 import {
   ItemOverviewButton,
   ItemOverviewContainer,
-  ItemOverviewImage,
+  ItemOverviewImage, ItemOverviewPrice,
   ItemOverviewText,
   ItemOverviewTextAndPriceContainer,
   ItemOverviewTitle
 } from "./item.overview.style";
 
-import { selectShopItem2 } from "../../redux/shop/shop.selector";
+import { selectShopItem } from "../../redux/shop/shop.selector";
 import { connect } from "react-redux";
 import { addItemToCart } from "../../redux/cart/cart.action";
 import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
@@ -31,7 +31,7 @@ const ItemOverviewPage = ({ item, history, dispatch }) => (
                     </div>
                     <ItemOverviewTextAndPriceContainer className="row">
                       <div className="col-6">
-                        <h1>${i.price}.00</h1>
+                        <ItemOverviewPrice>${i.price}.00</ItemOverviewPrice>
                       </div>
                       <div className="col-6">
                         <ItemOverviewButton
@@ -66,7 +66,7 @@ const ItemOverviewPage = ({ item, history, dispatch }) => (
 );
 
 const mapStateToProps = (state, props) => ({
-  item: selectShopItem2(props.match.params.id)(state)
+  item: selectShopItem(props.match.params.id)(state)
 });
 
 export default connect(mapStateToProps)(ItemOverviewPage);

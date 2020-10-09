@@ -7,7 +7,7 @@ import {
 } from "./side-nav.style";
 
 const SideNav = ({ title, brands, filterToBrand }) => (
-  <div className="col-md-3 col-6">
+  <div className="col-md-3 col-12">
     <SideNavContainer className="side-nav ">
       <SideNavTitle>{title}</SideNavTitle>
       <SideNavItemsContainer className="mt-5">

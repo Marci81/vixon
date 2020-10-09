@@ -19,14 +19,7 @@ export const selectShopItemsByCategory = category =>
     items => (items ? items[category] : null)
   );
 
-//TODO remove this one rename the other one selectShopItem2
-export const selectShopItem = (category, itemId) =>
-  createSelector(
-    selectShopAllItems,
-    items => items[category].items.find(i => i.id === Number(itemId))
-  );
-
-export const selectShopItem2 = itemId =>
+export const selectShopItem = itemId =>
   createSelector(
     selectShopItemsToArray,
     shopItems =>

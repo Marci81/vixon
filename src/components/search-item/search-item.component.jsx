@@ -27,7 +27,7 @@ const SearchItem = ({brand,name,imageUrl,price,id}) => (
       </th>
     
       <td className="border-0 align-middle">
-        <strong>${price}.00</strong>
+        <strong style={{color:"black", textDecoration:"none"}}>${price}.00</strong>
       </td>
     </Link>
   </SearchItemContainer>

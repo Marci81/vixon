@@ -27,9 +27,9 @@ class Nav extends React.Component {
       i.name.toLowerCase().includes(searchText.toLowerCase())
     );
     return (
-      <div>
-        <NavBarContainer className="navbar navbar-light navbar-expand-md ">
-          <div className="container-fluid">
+      <div >
+        <NavBarContainer className="navbar navbar-light navbar-expand-lg ">
+          <div className="container-fluid mr-5 ml-5">
             <NavItemLink className="navbar-brand NavBarBrand" to="/">
               Vixon
             </NavItemLink>
@@ -44,7 +44,7 @@ class Nav extends React.Component {
             <div className="collapse navbar-collapse" id="navcol-1">
               <ul className="nav navbar-nav NavBarNavContainer">
                 <li className="nav-item " role="presentation">
-                  <NavItemLink className="nav-link " to="/">
+                  <NavItemLink className="nav-link "  to="/">
                     Home
                   </NavItemLink>
                 </li>
@@ -122,7 +122,7 @@ class Nav extends React.Component {
                       onBlur={() => {
                         setTimeout(() => {
                           dispatch(toggleSearch());
-                        }, 100);
+                        }, 200);
                       }}
                     />
                     <div className="input-group-append ">
@@ -190,7 +190,6 @@ class Nav extends React.Component {
   }
 }
 
-//TODO Remove this and move it to Redux set
 const mapStateToProps = createStructuredSelector({
   items: selectItemsToTheSearch,
   currentUser: selectCurrentUser
