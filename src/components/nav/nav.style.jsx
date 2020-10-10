@@ -22,3 +22,9 @@ export const NavIcon = styled.img`
     opacity: 1;
   }
 `;
+
+export const NavSearchInput = styled.input`
+  @media (min-width: 991px) {
+    width: 400px!important;
+  }
+`

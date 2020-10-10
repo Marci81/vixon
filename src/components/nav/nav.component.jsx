@@ -1,5 +1,5 @@
 import React from "react";
-import {NavBarContainer, NavIcon, NavItemLink} from "./nav.style";
+import {NavBarContainer, NavIcon, NavItemLink, NavSearchInput} from "./nav.style";
 import { Link } from "react-router-dom";
 import Search from "../search/search.component";
 import { toggleSearch } from "../../redux/search/search.action";
@@ -108,14 +108,14 @@ class Nav extends React.Component {
                 </li>
                 <li>
                   <div className="input-group ">
-                    <input
+                    <NavSearchInput
                       value={searchText}
                       onChange={evt => {
                         this.setState({ searchText: evt.target.value });
                       }}
                       type="text"
                       placeholder="Search"
-                      aria-describedby="button-addon3"
+                      // aria-describedby="button-addon3"
                       className="form-control "
                       onFocus={() => {
                         dispatch(toggleSearch());
@@ -127,14 +127,14 @@ class Nav extends React.Component {
                       }}
                     />
                     <div className="input-group-append ">
-                      <button
-                        id="button-addon3"
-                        type="button"
-                        className="btn btn-primary px-4 "
-                        onClick={() => dispatch(toggleSearch())}
-                      >
-                        Search
-                      </button>
+                      {/*<button*/}
+                      {/*  id="button-addon3"*/}
+                      {/*  type="button"*/}
+                      {/*  className="btn btn-primary px-4 "*/}
+                      {/*  onClick={() => dispatch(toggleSearch())}*/}
+                      {/*>*/}
+                      {/*  Search*/}
+                      {/*</button>*/}
                     </div>
                   </div>
                 </li>
