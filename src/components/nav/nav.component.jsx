@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBarContainer, NavItemLink } from "./nav.style";
+import {NavBarContainer, NavIcon, NavItemLink} from "./nav.style";
 import { Link } from "react-router-dom";
 import Search from "../search/search.component";
 import { toggleSearch } from "../../redux/search/search.action";
@@ -9,6 +9,7 @@ import { selectItemsToTheSearch } from "../../redux/search/search.selector";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { auth } from "../../firebase/firebase.utils";
 import { resetAlert, toggleAlert } from "../../redux/alert/alert.action";
+import shop from "../../assets/images/logo/shop-icon_34368.png";
 
 class Nav extends React.Component {
   constructor(props) {
@@ -29,9 +30,9 @@ class Nav extends React.Component {
     return (
       <div >
         <NavBarContainer className="navbar navbar-light navbar-expand-lg ">
-          <div className="container-fluid mr-5 ml-5">
+          <div className="container-fluid">
             <NavItemLink className="navbar-brand NavBarBrand" to="/">
-              Vixon
+              <NavIcon src={shop}  alt="Vixon"/>
             </NavItemLink>
             <button
               data-toggle="collapse"

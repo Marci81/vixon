@@ -14,11 +14,11 @@ import {Fade} from "react-reveal";
 
 const HomePage = ({ itemsOrderByPrice, itemsSamsung }) => (
   <div>
-    <Fade left>
+    <Fade left={window.innerWidth > 700}>
       <ImageSlider />
       <div className="container">
         <Brands />
-        <Divider title="Cheapest" />
+        <Divider title="Best Price" />
         <ItemsDirectory
           items={itemsOrderByPrice}
           isShowAllItems={false}

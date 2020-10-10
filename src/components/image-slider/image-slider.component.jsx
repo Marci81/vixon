@@ -1,60 +1,33 @@
 import React from "react";
-import {
-  Image,
-  ImageArrow,
-  ImageSliderSwitcherContainer
-} from "./image-slider.style";
-import { imageUrls } from "./image-slider.data";
+import makeCarousel from "react-reveal/makeCarousel";
+import Slide from "react-reveal/Slide";
+import i1 from "../../assets/images/hero/1.png";
+import i3 from "../../assets/images/hero/3.png";
+import i4 from "../../assets/images/hero/4.png";
+import { Image } from "./image-slider.style";
+import CarouselUI from "./carousel-ui.component";
 
-class ImageSlider extends React.Component {
-  constructor(props) {
-    super(props);
+const Carousel = makeCarousel(CarouselUI);
 
-    this.state = {
-      currentImagePosition: 0
-    };
-  }
-
-  render() {
-    const { currentImagePosition } = this.state;
-    const imageUrl =imageUrls[currentImagePosition];
-    return (
-      <div>
-        <Image className="img-fluid" imageUrl={imageUrl} />
-        <ImageSliderSwitcherContainer className="mt-3">
-          <span className="mr-3">
-            <ImageArrow
-              onClick={() => {
-                if ( currentImagePosition >=1) {
-                  this.setState(state => {
-                    return {
-                      currentImagePosition: state.currentImagePosition - 1
-                    };
-                  });
-                }
-              }}
-              className="fas fa-chevron-left"
-            />
-          </span>
-          <span className="ml-3">
-            <ImageArrow
-              onClick={() => {
-                if (currentImagePosition <= 1) {
-                  this.setState(state => {
-                    return {
-                      currentImagePosition: state.currentImagePosition + 1
-                    };
-                  });
-                }
-              }}
-              className="fas fa-chevron-right"
-            />
-          </span>
-        </ImageSliderSwitcherContainer>
-        <hr/>
-      </div>
-    );
-  }
-}
-
+const ImageSlider = () => (
+  <div className="mb-5">
+    <Carousel>
+      <Slide right>
+        <div>
+          <Image className="img-fluid" imageUrl={i1} />
+        </div>
+      </Slide>
+      <Slide right>
+        <div>
+          <Image className="img-fluid" imageUrl={i3} />
+        </div>
+      </Slide>
+      <Slide right>
+        <div>
+          <Image className="img-fluid" imageUrl={i4} />
+        </div>
+      </Slide>
+    </Carousel>
+  </div>
+);
 export default ImageSlider;

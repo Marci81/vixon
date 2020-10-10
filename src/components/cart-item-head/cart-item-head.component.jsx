@@ -1,18 +1,19 @@
 import React from 'react';
+import {CartItemHeadProduct} from "./cart-item-head.style";
 
 const CartItemHead = props => (
   <tr>
     <th scope="col" className="border-0 bg-light">
-      <div className="p-2 px-3 text-uppercase">Product</div>
+      <CartItemHeadProduct className="p-2 px-3 text-uppercase">Product</CartItemHeadProduct>
     </th>
     <th scope="col" className="border-0 bg-light">
-      <div className="py-2 text-uppercase">Price</div>
+      <CartItemHeadProduct className="py-2 text-uppercase">Price</CartItemHeadProduct>
     </th>
     <th scope="col" className="border-0 bg-light">
-      <div className="py-2 text-uppercase">Quantity</div>
+      <CartItemHeadProduct className="py-2 text-uppercase">Quantity</CartItemHeadProduct>
     </th>
     <th scope="col" className="border-0 bg-light">
-      <div className="py-2 text-uppercase">Remove</div>
+      <CartItemHeadProduct className="py-2 text-uppercase">Remove</CartItemHeadProduct>
     </th>
   </tr>
 );

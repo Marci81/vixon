@@ -18,11 +18,11 @@ const CartItemBody = ({ item, dispatch }) => (
           className="img-fluid rounded shadow-sm"
         />
         <div className="ml-3 d-inline-block align-middle">
-          <h5 className="mb-0">
+          <h6 className="mb-0">
             <Link to={`/item/${item.id}`} className="text-dark d-inline-block align-middle">
               {item.name}
             </Link>
-          </h5>
+          </h6>
           <span className="text-muted font-weight-normal font-italic d-block">
             Brand: {item.brand}
           </span>

@@ -18,7 +18,7 @@ const ItemOverviewPage = ({ item, history, dispatch }) => (
   <div>
     {item.length > 0
       ? item.map(i => (
-          <Fade right>
+          <Fade right={window.innerWidth > 700}>
             <div className="container" key={i.id}>
               <ItemOverviewContainer className="row">
                 <div className="col-md-7">

@@ -17,7 +17,7 @@ const ShopPage = ({
   useEffect(() => {
     setItems(matchedCategoryItems.items);
   }, [category, matchedCategoryItems.items]);
- 
+
   const [items, setItems] = useState(matchedCategoryItems.items);
 
   const filterToBrand = brandName => {
@@ -33,7 +33,7 @@ const ShopPage = ({
       {!matchedCategoryItems ? (
         history.push("/error")
       ) : (
-        <Fade bottom>
+        <Fade right={window.innerWidth > 700}>
           <ImageSlider />
           <div className="container">
             <div className="row">
@@ -49,7 +49,7 @@ const ShopPage = ({
                 category={category}
                 items={items}
                 isShowAllItems={true}
-                cardsSize="mt - 3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-4"
+                cardsSize="mt-3 col-auto col-sm-12 col-md-6 col-lg-4 col-xl-4"
               />
             </div>
           </div>

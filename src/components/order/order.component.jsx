@@ -41,7 +41,7 @@ const Order = ({
           </li>
           <li className="d-flex justify-content-between py-3 border-bottom">
             <strong className="text-muted">Total</strong>
-            <h3 className="font-weight-bold">${cartTotalPrice}.00</h3>
+            <h5 className="font-weight-bold">${cartTotalPrice}.00</h5>
           </li>
         </ul>
         {/*<a href="#" className="btn btn-primary rounded-pill py-2 btn-block">*/}

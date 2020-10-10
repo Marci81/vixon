@@ -5,7 +5,7 @@ import {Fade} from "react-reveal";
 
 const LogInSignUpPage = props => (
   <div className="container mt-5">
-    <Fade bottom>
+    <Fade bottom={window.innerWidth > 700}>
       <div className="row">
         <SignUpEmail/>
         <LogIn/>

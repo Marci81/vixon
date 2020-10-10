@@ -15,7 +15,7 @@ const BrandPage = ({
   items
 }) => (
   <BrandPageContainer>
-    <Fade right>
+    <Fade right={window.innerWidth > 700}>
       <div className="container mb-5">
         <Divider
           title={

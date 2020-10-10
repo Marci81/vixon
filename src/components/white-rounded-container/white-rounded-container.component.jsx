@@ -1,8 +1,8 @@
 import React from "react";
 
-const WhiteRoundedContainer = props => (
-  <div className="row p-5 bg-white rounded shadow-sm mb-5">
-    {props.children}
+const WhiteRoundedContainer = ({children}) => (
+  <div className="row p-2 bg-white rounded shadow-sm mb-5">
+    {children}
   </div>
 );
 

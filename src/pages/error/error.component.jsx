@@ -5,7 +5,7 @@ import { Zoom } from "react-reveal";
 
 const ErrorPage = props => (
   <div className="container mt-5">
-    <Zoom left>
+    <Zoom left={window.innerWidth > 700}>
       <WhiteRoundedContainer>
         <ErrorPageContainer>
           <ErrorHeading>404</ErrorHeading>
