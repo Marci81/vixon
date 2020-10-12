@@ -6,7 +6,7 @@ import {
   ItemOverviewText,
   ItemOverviewTextAndPriceContainer,
   ItemOverviewTitle
-} from "./item.overview.style";
+} from "./item-overview.style";
 
 import { selectShopItem } from "../../redux/shop/shop.selector";
 import { connect } from "react-redux";

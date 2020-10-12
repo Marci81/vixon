@@ -52,14 +52,3 @@ export const ImageSliderArrow = styled.div`
           left: 0%;
         `}
 `;
-export const ImageSliderDot = styled.span`
-  font-size: 1.5em;
-  cursor: pointer;
-  text-shadow: 1px 1px 1px #fff;
-  user-select: none;
-`;
-export const ImageSliderDots = styled.span`
-  text-align: center;
-  width: ${width};
-  z-index: 100;
-`;
