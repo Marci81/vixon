@@ -1,16 +1,8 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import Nav from "./components/nav/nav.component";
 import Footer from "./components/footer/footer.component";
-
-import HomePage from "./pages/home/home.component";
-import CheckoutPage from "./pages/checkout/checkout.component";
-import ShopPage from "./pages/shop/shop.component";
-import LogInSignUpPage from "./pages/log-in-sign-up/log-in-sign-up.component";
-import ItemOverviewPage from "./pages/item-overview/item-overview.component";
-import ErrorPage from "./pages/error/error.component";
-import BrandPage from "./pages/brand/brand.component";
 import {
   addCollectionAndDocuments,
   auth,
@@ -25,6 +17,18 @@ import { connect } from "react-redux";
 import { selectShopItemsToArray } from "./redux/shop/shop.selector";
 import { updateShopItems } from "./redux/shop/shop.action";
 import WithSpinner from "./components/with-spinner/with-spinner.component";
+
+const HomePage = lazy(() => import("./pages/home/home.component"));
+const ItemOverviewPage = lazy(() =>
+  import("./pages/item-overview/item-overview.component")
+);
+const BrandPage = lazy(() => import("./pages/brand/brand.component"));
+const ShopPage = lazy(() => import("./pages/shop/shop.component"));
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
+const LogInSignUpPage = lazy(() =>
+  import("./pages/log-in-sign-up/log-in-sign-up.component")
+);
+const ErrorPage = lazy(() => import("./pages/error/error.component"));
 
 const NavWithSpinner = WithSpinner(Nav);
 const ItemOverviewPageWithSpinner = WithSpinner(ItemOverviewPage);
@@ -84,39 +88,44 @@ class App extends React.Component {
       <div>
         <NavWithSpinner isLoading={isLoading} />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/login-signup"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <LogInSignUpPage />
-            }
-          />
+          <Suspense fallback={<></>}>
+            <Route exact path="/" component={HomePage} />
 
-          <Route exact path="/error" render={ErrorPage} />
-          <Route
-            exact
-            path="/category/:category"
-            render={props => (
-              <ShopPageWithSpinner isLoading={isLoading} {...props} />
-            )}
-          />
-          <Route
-            exact
-            path="/item/:id"
-            render={props => (
-              <ItemOverviewPageWithSpinner isLoading={isLoading} {...props} />
-            )}
-          />
-          <Route
-            exact
-            path="/brands/:name"
-            render={props => (
-              <BrandPageWithSpinner isLoading={isLoading} {...props} />
-            )}
-          />
-          <Route component={ErrorPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/login-signup"
+              render={() =>
+                this.props.currentUser ? (
+                  <Redirect to="/" />
+                ) : (
+                  <LogInSignUpPage />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/category/:category"
+              render={props => (
+                <ShopPageWithSpinner isLoading={isLoading} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/item/:id"
+              render={props => (
+                <ItemOverviewPageWithSpinner isLoading={isLoading} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/brands/:name"
+              render={props => (
+                <BrandPageWithSpinner isLoading={isLoading} {...props} />
+              )}
+            />
+            <Route path="/error" component={ErrorPage} />
+          </Suspense>
         </Switch>
         <Footer />
       </div>
